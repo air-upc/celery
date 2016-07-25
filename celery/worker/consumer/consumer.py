@@ -185,14 +185,11 @@ class Consumer(object):
         self.task_buckets = defaultdict(lambda: None)
         self.reset_rate_limits()
 
-        self.hub = hub
-        if self.hub:
-            self.amqheartbeat = amqheartbeat
-            if self.amqheartbeat is None:
-                self.amqheartbeat = self.app.conf.broker_heartbeat
-        else:
-            self.amqheartbeat = 0
+        self.amqheartbeat = amqheartbeat
+        if self.amqheartbeat is None:
+            self.amqheartbeat = self.app.conf.broker_heartbeat
 
+        self.hub = hub
         if not hasattr(self, 'loop'):
             self.loop = loops.asynloop if hub else loops.synloop
 

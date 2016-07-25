@@ -112,7 +112,7 @@ def synloop(obj, connection, consumer, blueprint, hub, qos,
             perform_pending_operations()
             connection.drain_events(timeout=2.0)
         except socket.timeout:
-            pass
+            conn.heartbeat_check()
         except socket.error:
             if blueprint.state == RUN:
                 raise
